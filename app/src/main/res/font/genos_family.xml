@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Static fonts for full weight range -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="100"
+        android:font="@font/genos_thin" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="200"
+        android:font="@font/genos_extra_light" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="300"
+        android:font="@font/genos_light" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/genos_regular" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="500"
+        android:font="@font/genos_medium" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="600"
+        android:font="@font/genos_semi_bold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        android:font="@font/genos_bold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="800"
+        android:font="@font/genos_extra_bold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="900"
+        android:font="@font/genos_black" />
+
+    <!-- Italic variants (using static italic fonts) -->
+    <font
+        android:fontStyle="italic"
+        android:fontWeight="400"
+        android:font="@font/genos_italic" />
+    <font
+        android:fontStyle="italic"
+        android:fontWeight="700"
+        android:font="@font/genos_bold_italic" />
+</font-family>

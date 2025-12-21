@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="AppFrontend.Interface.GetStarted.GetStarted_Fragment">
+
+    <!-- Background Image: Full height, centered, cropped to fit -->
+    <ImageView
+        android:id="@+id/background_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/get_started_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Text: On top of image -->
+
+    <!-- Button: On top of image -->
+
+    <TextView
+        android:id="@+id/text_welcome"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/genos_family"
+        android:gravity="center_horizontal"
+        android:letterSpacing="0.5"
+        android:text="FRACTAL"
+        android:textColor="@color/black"
+        android:textFontWeight="700"
+        android:textSize="34dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_get_started"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.739" />
+
+    <TextView
+        android:id="@+id/subtext_welcome"
+        android:layout_width="312dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/genos_family"
+        android:gravity="center_horizontal"
+        android:text="Fractal, a decentralized cloud computing platform, leveraging federated resource allocation and distributed workload orchestration"
+        android:textColor="@color/black"
+        android:textFontWeight="400"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_get_started"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.953" />
+
+    <Button
+        android:id="@+id/btn_get_started"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="68dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/genos_family"
+        android:letterSpacing="0.14"
+        android:text="Get Started"
+        android:textColor="@color/black"
+        android:textFontWeight="600"
+        android:textSize="19dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

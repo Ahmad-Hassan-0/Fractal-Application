@@ -1,16 +1,77 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Fractal" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+    <style name="Theme.Fractal" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Backgrounds: Pure black canvas -->
+        <item name="android:windowBackground">@color/black</item>
+        <item name="colorSurface">@color/black</item>
+        <item name="colorSurfaceVariant">@color/black</item>
+
+        <!-- Text/Icons: White on black -->
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
+
+        <!-- Primary (accents like buttons): White for contrast -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>  <!-- Black text on white buttons -->
+
+        <!-- Secondary: Light gray -->
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/white</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Status bar: Base (no light flag—falls back on API <23) -->
+        <item name="android:statusBarColor">@color/black</item>
+
+        <!-- App-wide font: Genos family (same for dark) -->
+        <item name="android:fontFamily">@font/genos_family</item>
+
+        <!-- Material3 text styles: Override with Genos -->
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.Fractal.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.Fractal.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.Fractal.BodySmall</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.Fractal.HeadlineSmall</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.Fractal.HeadlineMedium</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.Fractal.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.Fractal.TitleMedium</item>
+
+        <!-- Button font override -->
+        <item name="materialButtonStyle">@style/Fractal.Button</item>
+
         <!-- Customize your theme here. -->
+    </style>
+
+    <!-- Custom text appearances with Genos (same as light) -->
+    <style name="TextAppearance.Fractal.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/genos_family</item>
+    </style>
+
+    <style name="TextAppearance.Fractal.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">@font/genos_family</item>
+    </style>
+
+    <style name="TextAppearance.Fractal.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">@font/genos_family</item>
+    </style>
+
+    <style name="TextAppearance.Fractal.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">@font/genos_family</item>
+    </style>
+
+    <style name="TextAppearance.Fractal.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">@font/genos_family</item>
+    </style>
+
+    <style name="TextAppearance.Fractal.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">@font/genos_family</item>
+    </style>
+
+    <style name="TextAppearance.Fractal.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/genos_family</item>
+    </style>
+
+    <!-- Custom button style with Genos (same as light) -->
+    <style name="Fractal.Button" parent="Widget.Material3.Button">
+        <item name="android:fontFamily">@font/genos_family</item>
     </style>
 </resources>

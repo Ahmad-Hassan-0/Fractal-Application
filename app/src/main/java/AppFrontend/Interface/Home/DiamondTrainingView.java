@@ -1,0 +1,86 @@
+package AppFrontend.Interface.Home;
+
+import android.animation.ValueAnimator;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import androidx.annotation.Nullable;
+
+public class DiamondTrainingView extends View {
+
+    private Paint paint;
+    private Path path;
+    private float strokeWidth = 10f;
+    private boolean isTraining = false;
+
+    public DiamondTrainingView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    private void init() {
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.parseColor("#181818"));
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        path = new Path();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        float w = getWidth();
+        float h = getHeight();
+
+        float scaleX = w / 100f;
+        float scaleY = h / 212f;
+
+        // Define the diamond path based on your SVG
+        path.reset();
+        path.moveTo(27.1319f * scaleX, 16.0127f * scaleY);
+        path.lineTo(3.00002f * scaleX, 57.5869f * scaleY);
+        path.lineTo(3.00002f * scaleX, 127.467f * scaleY);
+        path.lineTo(49.9834f * scaleX, 206.149f * scaleY);
+        path.lineTo(97f * scaleX, 127.467f * scaleY);
+        path.lineTo(97f * scaleX, 57.5869f * scaleY);
+        path.lineTo(72.9072f * scaleX, 16.0781f * scaleY);
+        path.lineTo(49.9815f * scaleX, 3.42578f * scaleY);
+        path.close();
+
+        // --- THE TRICK FOR INNER STROKE ---
+        canvas.save(); // Save current state
+        canvas.clipPath(path); // Only things inside this path will be drawn
+
+        // We double the stroke width because half of it is being clipped
+        // outside the line. Doubling it makes the "inside" part look correct.
+        paint.setStrokeWidth(strokeWidth * 2);
+
+        canvas.drawPath(path, paint);
+        canvas.restore(); // Restore to normal
+    }
+
+    public void animateLoading(boolean start) {
+        isTraining = start;
+        // Inactive: 6dp stroke / Active: 56dp stroke
+        float startWidth = start ? 10f : 120f;
+        float endWidth = start ? 120f : 10f;
+
+        ValueAnimator animator = ValueAnimator.ofFloat(startWidth, endWidth);
+        animator.setDuration(1000);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.addUpdateListener(animation -> {
+            strokeWidth = (float) animation.getAnimatedValue();
+            invalidate();
+        });
+        animator.start();
+    }
+
+    public boolean isTraining() { return isTraining; }
+}

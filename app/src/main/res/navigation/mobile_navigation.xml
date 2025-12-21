@@ -3,23 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_get_started">
+
+    <fragment
+        android:id="@+id/navigation_get_started"
+        android:name="AppFrontend.Interface.GetStarted.GetStarted_Fragment"
+        android:label="@string/title_get_started"
+        tools:layout="@layout/fragment_get_started">
+
+        <action
+            android:id="@+id/action_getStarted_to_home"
+            app:destination="@id/navigation_home"
+
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+
+            app:popUpTo="@id/navigation_get_started"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_device"
+        android:name="AppFrontend.Interface.Insights.DeviceInsights.DeviceInsightsFragment"
+        android:label="@string/title_device"
+        tools:layout="@layout/fragment_device" />
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.fractal.ui.home.HomeFragment"
+        android:name="AppFrontend.Interface.Home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.fractal.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_model"
+        android:name="AppFrontend.Interface.Insights.ModelTraining.ModelTrainingFragment"
+        android:label="@string/title_model"
+        tools:layout="@layout/fragment_model" />
 
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.fractal.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
 </navigation>
