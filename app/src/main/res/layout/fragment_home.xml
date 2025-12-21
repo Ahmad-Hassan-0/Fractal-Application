@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context="AppFrontend.Interface.Home.HomeFragment">
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:letterSpacing="0.5"
+        android:text="FRACTAL"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <AppFrontend.Interface.Home.DiamondTrainingView
         android:id="@+id/diamond_toggle_button"
         android:layout_width="143dp"
@@ -16,20 +29,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:letterSpacing="0.5"
-        android:text="FRACTAL"
-        android:textFontWeight="700"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,8 +36,7 @@
         android:letterSpacing="0.24"
         android:text="inactive"
         android:textAlignment="center"
-        android:textFontWeight="400"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/diamond_toggle_button" />
@@ -48,15 +46,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
-        android:text="Computation Usage: 12%"
+        android:text="Computation Usage: --%"
         android:textAlignment="center"
-        android:textFontWeight="400"
         android:letterSpacing="0.16"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/processor_usage_percentage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:letterSpacing="0.16"
+        android:text="Processor Usage: --%"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/computation_usage_percentage" />
 
     <TextView
         android:id="@+id/ram_usage_percentage"
@@ -64,12 +73,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:letterSpacing="0.16"
-        android:text="Ram Usage: 87%"
+        android:text="Ram Usage: --%"
         android:textAlignment="center"
-        android:textFontWeight="400"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/processor_usage_percentage" />
 
@@ -79,28 +86,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:letterSpacing="0.16"
-        android:text="System Temperature: 29°C "
+        android:text="System Temperature: --°C"
         android:textAlignment="center"
-        android:textFontWeight="400"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ram_usage_percentage" />
-
-    <TextView
-        android:id="@+id/processor_usage_percentage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:letterSpacing="0.16"
-        android:text="Processor Usage: 78%"
-        android:textAlignment="center"
-        android:textFontWeight="400"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/computation_usage_percentage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

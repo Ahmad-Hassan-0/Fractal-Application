@@ -58,4 +58,8 @@ class FractalApplication : Application() {
 
         Log.d("FractalApp", "FractalApplication started. Config Loaded: $appConfig")
     }
+
+
+
+
 }
