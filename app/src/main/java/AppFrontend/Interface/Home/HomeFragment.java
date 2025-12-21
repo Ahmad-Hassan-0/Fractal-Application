@@ -21,7 +21,6 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        // 1. Observe System Stats (CPU, RAM, Temp)
         homeViewModel.getLiveStats().observe(getViewLifecycleOwner(), stats -> {
             binding.processorUsagePercentage.setText("Processor Usage: " + stats.getCpuPercentage() + "%");
             binding.ramUsagePercentage.setText("Ram Usage: " + stats.getRamPercentage() + "%");
@@ -29,39 +28,31 @@ public class HomeFragment extends Fragment {
             binding.computationUsagePercentage.setText("Computation Usage: 100%");
         });
 
-        // 2. Observe Training Progress (Updates Diamond View stroke/fill)
         homeViewModel.getTrainingProgress().observe(getViewLifecycleOwner(), percent -> {
             binding.diamondToggleButton.setProgress(percent);
         });
 
-        // 3. Observe Status Messages (UI Text updates)
         homeViewModel.getStatusMessage().observe(getViewLifecycleOwner(), msg -> {
             binding.textView.setText(msg);
         });
 
-        // 4. Click Trigger for AI Lifecycle
         binding.diamondToggleButton.setOnClickListener(v -> {
+            String laptopIp = "192.168.0.101"; // Ensure this matches your server IP
 
-            String laptopIp = "192.168.0.101";
-
-            Log.d(TAG, "Diamond Clicked. Checking local data files...");
-
-            // Check if files exist in internal storage
+            // Check for ALL three required files
             File imgFile = new File(requireContext().getFilesDir(), "train_images_server.bin");
             File lblFile = new File(requireContext().getFilesDir(), "train_labels_server.bin");
+            File modelFile = new File(requireContext().getFilesDir(), "model_server.tflite");
 
-            if (!imgFile.exists() || !lblFile.exists()) {
-                // Files missing -> Trigger Download from Python Server
-                binding.textView.setText("Data missing. Downloading...");
-                Log.i(TAG, "Files not found. Initiating server download...");
+            if (!imgFile.exists() || !lblFile.exists() || !modelFile.exists()) {
+                binding.textView.setText("Resources missing. Syncing...");
 
                 DataDownloader_naf.downloadFiles(getContext(), laptopIp, new DataDownloader_naf.DownloadListener() {
                     @Override
                     public void onDownloadFinished() {
                         if (getActivity() != null) {
                             getActivity().runOnUiThread(() -> {
-                                Log.i(TAG, "Download complete. Starting AI Lifecycle.");
-                                binding.textView.setText("Download Success. Starting AI...");
+                                binding.textView.setText("Sync Complete. Starting AI...");
                                 homeViewModel.runAILifecycle();
                             });
                         }
@@ -71,15 +62,12 @@ public class HomeFragment extends Fragment {
                     public void onError(String error) {
                         if (getActivity() != null) {
                             getActivity().runOnUiThread(() -> {
-                                Log.e(TAG, "Download failed: " + error);
-                                binding.textView.setText("Server Error: " + error);
+                                binding.textView.setText("Sync Error: " + error);
                             });
                         }
                     }
                 });
             } else {
-                // Files exist -> Run AI Lifecycle immediately
-                Log.i(TAG, "Local files found. Starting AI Lifecycle.");
                 homeViewModel.runAILifecycle();
             }
         });

@@ -13,35 +13,33 @@ public class DataDownloader_naf {
 
     private static final String TAG = "FRACTAL_DOWNLOADER";
 
-    // This is the interface your Fragment is looking for
     public interface DownloadListener {
         void onDownloadFinished();
         void onError(String error);
     }
 
-    /**
-     * This method matches the call in your Fragment:
-     * DataDownloader_naf.downloadFiles(getContext(), laptopIp, listener)
-     */
     public static void downloadFiles(Context context, String laptopIp, DownloadListener listener) {
         new Thread(() -> {
             try {
-                // Construct URLs based on the Python Server routes
                 String baseUrl = "http://" + laptopIp + ":5000/download/";
                 String imagesUrl = baseUrl + "images";
                 String labelsUrl = baseUrl + "labels";
+                String modelUrl = baseUrl + "model"; // New endpoint for TFLite model
 
-                Log.d(TAG, "Starting download from: " + baseUrl);
+                Log.d(TAG, "Starting full sync from: " + baseUrl);
 
-                // Download both files to internal storage
+                // 1. Download Images
                 downloadFile(context, imagesUrl, "train_images_server.bin");
+                // 2. Download Labels
                 downloadFile(context, labelsUrl, "train_labels_server.bin");
+                // 3. Download Model
+                downloadFile(context, modelUrl, "model_server.tflite");
 
-                Log.i(TAG, "Downloads complete.");
+                Log.i(TAG, "All files (Images, Labels, Model) downloaded successfully.");
                 listener.onDownloadFinished();
 
             } catch (Exception e) {
-                Log.e(TAG, "Download failed: " + e.getMessage());
+                Log.e(TAG, "Sync failed: " + e.getMessage());
                 listener.onError(e.getMessage());
             }
         }).start();
@@ -50,11 +48,11 @@ public class DataDownloader_naf {
     private static File downloadFile(Context context, String urlStr, String fileName) throws Exception {
         URL url = new URL(urlStr);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setConnectTimeout(10000); // 10 seconds timeout
+        connection.setConnectTimeout(15000);
         connection.connect();
 
         if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-            throw new Exception("Server returned HTTP " + connection.getResponseCode());
+            throw new Exception("Server Error (" + fileName + "): " + connection.getResponseCode());
         }
 
         File file = new File(context.getFilesDir(), fileName);
