@@ -6,7 +6,4 @@ class UsageInsights_ViewModel {
 
     }
 
-    fun optimize(){
-
-    }
 }

@@ -12,9 +12,13 @@ import androidx.annotation.Nullable;
 public class DiamondTrainingView extends View {
     private Paint paint;
     private Path path;
-    private float strokeWidth = 10f;
-    private final float MIN_STROKE = 10f;
-    private final float MAX_STROKE = 120f;
+
+    private final float density = getResources().getDisplayMetrics().density;
+
+    // These are now DP-based
+    private final float MIN_STROKE = 5f * density;
+    private final float MAX_STROKE = 69f * density;
+    private float strokeWidth = MIN_STROKE;
 
     public DiamondTrainingView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -31,6 +35,8 @@ public class DiamondTrainingView extends View {
         super.onDraw(canvas);
         float w = getWidth();
         float h = getHeight();
+        if (w == 0 || h == 0) return;
+
         float scaleX = w / 100f;
         float scaleY = h / 212f;
 
@@ -46,14 +52,19 @@ public class DiamondTrainingView extends View {
         path.close();
 
         canvas.save();
+        // This 'clips' the drawing area to the inside of the diamond
         canvas.clipPath(path);
+
+        // We double the stroke width because half of it is hidden by the clip
         paint.setStrokeWidth(strokeWidth * 2);
         canvas.drawPath(path, paint);
+
         canvas.restore();
     }
 
     public void setProgress(int percentage) {
-        this.strokeWidth = MIN_STROKE + ((MAX_STROKE - MIN_STROKE) * (percentage / 100f));
+        float progress = Math.min(100, Math.max(0, percentage)) / 100f;
+        this.strokeWidth = MIN_STROKE + ((MAX_STROKE - MIN_STROKE) * progress);
         invalidate();
     }
 }

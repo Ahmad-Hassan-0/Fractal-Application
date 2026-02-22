@@ -24,8 +24,8 @@ public class DeviceInsightsFragment extends Fragment {
         binding = FragmentDeviceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDevice;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textDevice;
+//        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

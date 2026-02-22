@@ -17,7 +17,7 @@ public class FileUploader_naf {
             String twoHyphens = "--";
 
             try {
-                Log.d(TAG, "Starting upload of: " + file.getName());
+                Log.d(TAG, "Starting upload of: " + file.getName() + " to " + urlString);
                 HttpURLConnection conn = (HttpURLConnection) new URL(urlString).openConnection();
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
@@ -50,7 +50,7 @@ public class FileUploader_naf {
                 if (serverResponseCode == 200) {
                     Log.i(TAG, "UPLOAD SUCCESS: Checkpoint sent to server.");
                 } else {
-                    Log.e(TAG, "UPLOAD FAILED: Server returned " + serverResponseCode);
+                    Log.e(TAG, "UPLOAD FAILED: Server returned HTTP " + serverResponseCode);
                 }
 
                 fis.close();
