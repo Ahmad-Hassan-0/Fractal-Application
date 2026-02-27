@@ -16,7 +16,7 @@ class trainer_naf(private val context: Context) {
     private val TAG = "FRACTAL_AI_ENGINE"
 
     // EXACT Parameters from your working code
-    private val NUM_EPOCHS = 2
+    private val NUM_EPOCHS = 20
     private val BATCH_SIZE = 100
     private val IMG_HEIGHT = 28
     private val IMG_WIDTH = 28

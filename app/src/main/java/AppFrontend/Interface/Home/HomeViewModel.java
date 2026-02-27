@@ -1,17 +1,18 @@
 package AppFrontend.Interface.Home;
 
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-// FIX 1: Ensure this package and class name matches your Kotlin file exactly
 import AppFrontend.Interface.Home.trainer_naf;
-
-
 import AppBackend.ResourceManagement.ResourceManager.ResourceManager_Live_DTO;
 import AppBackend.ResourceManagement.FileUploader_naf;
+import com.example.fractal.FractalTrainingService; // Import the new service
+
 import java.io.File;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -21,14 +22,12 @@ public class HomeViewModel extends AndroidViewModel {
     private final MutableLiveData<ResourceManager_Live_DTO> liveStats = new MutableLiveData<>();
     private final MutableLiveData<String> statusMessage = new MutableLiveData<>("inactive");
 
-    // FIX 2: Variable type must match the class name in the Kotlin file
     private final trainer_naf trainerEngine;
     private final ResourceManager_Live_DTO resourceManager;
     private static final String TAG = "FRACTAL_VM";
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
-        // FIX 3: Initialize using the correct class name
         trainerEngine = new trainer_naf(application);
         resourceManager = new ResourceManager_Live_DTO(application);
 
@@ -41,15 +40,24 @@ public class HomeViewModel extends AndroidViewModel {
     public void runAILifecycle(String laptopIp) {
         new Thread(() -> {
             try {
+                // --- 1. START IMMORTAL FOREGROUND SERVICE ---
+                Intent startIntent = new Intent(getApplication(), FractalTrainingService.class);
+                startIntent.putExtra("PROGRESS", 0);
+                ContextCompat.startForegroundService(getApplication(), startIntent);
+
                 statusMessage.postValue("Checking checkpoints...");
                 trainerEngine.restoreWeights();
 
-                // FIX 4: Callback must reference the correct class name
                 trainerEngine.trainModel(new trainer_naf.TrainingCallback() {
                     @Override
                     public void onProgress(int percentage) {
                         trainingProgress.postValue(percentage);
                         statusMessage.postValue("Training: " + percentage + "%");
+
+                        // --- 2. UPDATE NOTIFICATION PROGRESS ---
+                        Intent updateIntent = new Intent(getApplication(), FractalTrainingService.class);
+                        updateIntent.putExtra("PROGRESS", percentage);
+                        getApplication().startService(updateIntent);
                     }
 
                     @Override
@@ -83,6 +91,11 @@ public class HomeViewModel extends AndroidViewModel {
             } catch (Exception e) {
                 Log.e(TAG, "Lifecycle Error: " + e.getMessage());
                 statusMessage.postValue("Error: " + e.getMessage());
+            } finally {
+                // --- 3. STOP SERVICE WHEN DONE OR ON CRASH ---
+                Intent stopIntent = new Intent(getApplication(), FractalTrainingService.class);
+                stopIntent.setAction("STOP_SERVICE");
+                getApplication().startService(stopIntent);
             }
         }).start();
     }
@@ -91,75 +104,3 @@ public class HomeViewModel extends AndroidViewModel {
     public MutableLiveData<ResourceManager_Live_DTO> getLiveStats() { return liveStats; }
     public MutableLiveData<String> getStatusMessage() { return statusMessage; }
 }
-
-//package AppFrontend.Interface.Home;
-//
-//import android.app.Application;
-//import android.util.Log;
-//import androidx.annotation.NonNull;
-//import androidx.lifecycle.AndroidViewModel;
-//import androidx.lifecycle.MutableLiveData;
-//
-//// The class name defined in your Kotlin file is ModelTrainer
-//import AppFrontend.Interface.Home.ModelTrainer;
-//
-//import AppBackend.ResourceManagement.ResourceManager.ResourceManager_Live_DTO;
-//import java.util.concurrent.Executors;
-//import java.util.concurrent.TimeUnit;
-//
-//public class HomeViewModel extends AndroidViewModel {
-//    private final MutableLiveData<Integer> trainingProgress = new MutableLiveData<>(0);
-//    private final MutableLiveData<ResourceManager_Live_DTO> liveStats = new MutableLiveData<>();
-//    private final MutableLiveData<String> statusMessage = new MutableLiveData<>("inactive");
-//
-//    private final ModelTrainer trainerEngine;
-//    private final ResourceManager_Live_DTO resourceManager;
-//    private static final String TAG = "FRACTAL_VM";
-//
-//    public HomeViewModel(@NonNull Application application) {
-//        super(application);
-//        // Initialize the Kotlin ModelTrainer
-//        trainerEngine = new ModelTrainer(application);
-//        resourceManager = new ResourceManager_Live_DTO(application);
-//
-//        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
-//            resourceManager.updateStatistics(application);
-//            liveStats.postValue(resourceManager);
-//        }, 0, 500, TimeUnit.MILLISECONDS);
-//    }
-//
-//    public void runAILifecycle(String laptopIp) {
-//        new Thread(() -> {
-//            try {
-//                statusMessage.postValue("Initializing...");
-//                Log.d(TAG, "Step 1: Initializing Weights");
-//                trainerEngine.initializeWeights();
-//
-//                statusMessage.postValue("Training...");
-//                Log.d(TAG, "Step 2: Starting Training Pipeline");
-//                trainerEngine.trainModel();
-//
-//                statusMessage.postValue("Inference...");
-//                Log.d(TAG, "Step 3: Running Test Inference");
-//                float[] dummyImage = new float[28 * 28];
-//                for (int i = 0; i < dummyImage.length; i++) dummyImage[i] = 0.5f;
-//                trainerEngine.inferModel(dummyImage);
-//
-//                statusMessage.postValue("Restoring...");
-//                Log.d(TAG, "Step 4: Restoring Weights from Checkpoint");
-//                trainerEngine.restoreWeights();
-//
-//                statusMessage.postValue("Complete");
-//                Log.d(TAG, "AI Lifecycle Pipeline finished successfully");
-//
-//            } catch (Exception e) {
-//                statusMessage.postValue("Error");
-//                Log.e(TAG, "Pipeline failed: " + e.getMessage());
-//            }
-//        }).start();
-//    }
-//
-//    // Getters for UI observation
-//    public MutableLiveData<String> getStatusMessage() { return statusMessage; }
-//    public MutableLiveData<ResourceManager_Live_DTO> getLiveStats() { return liveStats; }
-//}

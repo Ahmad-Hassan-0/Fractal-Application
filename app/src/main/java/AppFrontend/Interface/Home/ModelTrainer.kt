@@ -19,7 +19,7 @@ class ModelTrainer(private val context: Context) {
     private var interpreter: Interpreter? = null
 
     // Training parameters (rememebr: change the num_tranings on the evalution day, so showcase will be fast)
-    private val NUM_EPOCHS = 2
+    private val NUM_EPOCHS = 20
     private val BATCH_SIZE = 100
     private val IMG_HEIGHT = 28
     private val IMG_WIDTH = 28
