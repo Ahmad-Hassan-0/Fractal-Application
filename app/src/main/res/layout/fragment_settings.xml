@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="24dp">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="-8dp"
+        android:layout_marginStart="-16dp"
+        android:scaleType="center"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/backarrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#4F4F4F" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/genos_family"
+        android:letterSpacing="0.16"
+        android:text="Settings"
+        android:textFontWeight="500"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_back" />
+
+    <TextView
+        android:id="@+id/tv_section_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/genos_family"
+        android:textFontWeight="500"
+        android:letterSpacing="0.16"
+        android:text="Training Preferences"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <LinearLayout
+        android:id="@+id/ll_toggles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/tv_section_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/genos_regular"
+                android:letterSpacing="0.16"
+                android:text="On-WiFi Train Only"
+                android:textColor="#505050"
+                android:textSize="16dp" />
+            <ImageView
+                android:id="@+id/btn_wifi"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/leaf_unchecked"
+                app:tint="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/genos_regular"
+                android:letterSpacing="0.16"
+                android:text="On-Data Train Only"
+                android:textColor="#505050"
+                android:textSize="16dp" />
+            <ImageView
+                android:id="@+id/btn_data"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/leaf_unchecked"
+                app:tint="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/genos_regular"
+                android:letterSpacing="0.16"
+                android:text="Over-Night Utilization"
+                android:textColor="#505050"
+                android:textSize="16dp" />
+            <ImageView
+                android:id="@+id/btn_overnight"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/leaf_unchecked"
+                app:tint="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/genos_regular"
+                android:letterSpacing="0.16"
+                android:text="Idle-Time Utilization"
+                android:textColor="#505050"
+                android:textSize="16dp" />
+            <ImageView
+                android:id="@+id/btn_idle"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/leaf_unchecked"
+                app:tint="#000000" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_charge_limit_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/genos_regular"
+        android:letterSpacing="0.16"
+        android:text="Only train when charging is\nabove: 34%"
+        android:textAlignment="center"
+        android:textColor="#505050"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_toggles" />
+
+    <LinearLayout
+        android:id="@+id/ll_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tv_charge_limit_label">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/genos_regular"
+            android:text="0%"
+            android:textColor="#000000"
+            android:textSize="24dp"
+            android:layout_marginEnd="8dp"/>
+
+        <SeekBar
+            android:id="@+id/slider_charge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="100"
+            android:progress="34"
+            android:progressDrawable="@drawable/track_solid"
+            android:thumb="@drawable/thumb_marker"
+            android:splitTrack="false"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:minHeight="40dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/genos_regular"
+            android:text="100%"
+            android:textColor="#000000"
+            android:textSize="24dp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/ll_slider">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/genos_regular"
+            android:letterSpacing="0.16"
+            android:text="On-Charging exclusive training"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btn_charging_exclusive"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/leaf_unchecked"
+            app:tint="#000000" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

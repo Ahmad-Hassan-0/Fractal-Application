@@ -14,21 +14,13 @@
         <action
             android:id="@+id/action_getStarted_to_home"
             app:destination="@id/navigation_home"
-
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"
-
             app:popUpTo="@id/navigation_get_started"
             app:popUpToInclusive="true" />
     </fragment>
-
-    <fragment
-        android:id="@+id/navigation_device"
-        android:name="AppFrontend.Interface.Insights.DeviceInsights.DeviceInsightsFragment"
-        android:label="@string/title_device"
-        tools:layout="@layout/fragment_device" />
 
     <fragment
         android:id="@+id/navigation_home"
@@ -37,9 +29,51 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_device"
+        android:name="AppFrontend.Interface.Insights.InsightsPagerFragment"
+        android:label="Insights"
+        tools:layout="@layout/fragment_insights_pager" />
+
+    <fragment
         android:id="@+id/navigation_model"
         android:name="AppFrontend.Interface.Insights.ModelTraining.ModelTrainingFragment"
         android:label="@string/title_model"
         tools:layout="@layout/fragment_model" />
+
+    <fragment
+        android:id="@+id/navigation_registered_info"
+        android:name="AppFrontend.Interface.RegisteredInfo.RegisteredInfo_Fragment"
+        android:label="Registered Info"
+        tools:layout="@layout/fragment_registered_info" />
+
+    <fragment
+        android:id="@+id/navigation_device_auth"
+        android:name="AppFrontend.Interface.Auth.DeviceAuthorization.DeviceAuthorization_Fragment"
+        android:label="Device Authorization"
+        tools:layout="@layout/fragment_device_authorization" />
+
+    <fragment
+        android:id="@+id/navigation_device_unregister"
+        android:name="AppFrontend.Interface.Auth.DeviceUnregister.DeviceUnregister_Fragment"
+        android:label="Unregister Device"
+        tools:layout="@layout/fragment_device_unregister" />
+
+    <fragment
+        android:id="@+id/navigation_about"
+        android:name="AppFrontend.Interface.AboutUs.AboutUs_Fragment"
+        android:label="About Us"
+        tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+        android:id="@+id/navigation_forget_password"
+        android:name="AppFrontend.Interface.Auth.ForgetPassword.ForgetPassword_Fragment"
+        android:label="Forget Password"
+        tools:layout="@layout/fragment_forget_password" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="AppFrontend.Interface.Settings.Settings_Fragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>

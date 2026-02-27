@@ -5,13 +5,18 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:elevation="0dp"
-    android:padding="30dp">
+    android:paddingTop="20dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="20dp"
+    >
 
-    <!-- Left: Drawer/Hamburger Icon (constrained to start/left) -->
     <ImageButton
         android:id="@+id/header_drawer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="-16dp"
+        android:scaleType="center"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Open Menu"
         android:src="@drawable/header_drawer_icon"
@@ -19,7 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Right: Logo (constrained to end/right) -->
     <ImageView
         android:id="@+id/header_logo"
         android:layout_width="40dp"

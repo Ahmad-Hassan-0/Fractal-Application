@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="#000000"
+    app:cardElevation="0dp"
+    app:cardMaxElevation="0dp"
+    app:strokeWidth="0dp"
+    app:shapeAppearanceOverlay="@style/SidebarCutShape">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.41">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="86dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/genos_family"
+                    android:letterSpacing="0.5"
+                    android:text="FRACTAL"
+                    android:textColor="#5A5A5A"
+                    android:textFontWeight="400"
+                    android:textSize="19dp" />
+
+                <TextView
+                    android:id="@+id/nav_item_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/genos_regular"
+                    android:letterSpacing="0.1"
+                    android:padding="8dp"
+                    android:text="Settings"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/nav_item_about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/genos_regular"
+                    android:letterSpacing="0.1"
+                    android:padding="8dp"
+                    android:text="About Us"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/nav_item_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/genos_regular"
+                    android:letterSpacing="0.1"
+                    android:padding="8dp"
+                    android:text="Rate Us"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/genos_family"
+                    android:letterSpacing="0.2"
+                    android:text="REGISTRATION"
+                    android:textColor="#5A5A5A"
+                    android:textFontWeight="400"
+                    android:textSize="19dp" />
+
+                <TextView
+                    android:id="@+id/nav_item_reg_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/genos_regular"
+                    android:letterSpacing="0.1"
+                    android:padding="8dp"
+                    android:text="Reg. Info"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/nav_item_reg_device"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/genos_regular"
+                    android:letterSpacing="0.1"
+                    android:padding="8dp"
+                    android:text="Reg. Device"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/nav_item_unreg_device"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/genos_regular"
+                    android:letterSpacing="0.1"
+                    android:padding="8dp"
+                    android:text="Un-Reg. Device"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/fractal_logo_sidebar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/fractal_logo_sidebar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="#FFFFFF" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/sidebar_close_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/header_drawer_icon"
+        app:tint="#FFFFFF" />
+
+
+
+</com.google.android.material.card.MaterialCardView>

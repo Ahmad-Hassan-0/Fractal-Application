@@ -37,9 +37,9 @@ public class HomeFragment extends Fragment {
         });
 
         binding.diamondToggleButton.setOnClickListener(v -> {
-            String laptopIp = "192.168.0.102"; // Ensure this matches your server IP
+            String laptopIp = "192.168.0.109"; // Ensure this matches your server IP
 //            String laptopIp = "10.120.154.12";
-//            String laptopIp = "192.168.43.76";
+
             // Check for ALL three required files
             File imgFile = new File(requireContext().getFilesDir(), "train_images_server.bin");
             File lblFile = new File(requireContext().getFilesDir(), "train_labels_server.bin");

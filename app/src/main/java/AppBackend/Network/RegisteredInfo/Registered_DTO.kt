@@ -1,15 +1,15 @@
 package AppBackend.Network.RegisteredInfo
 
 data class Registered_DTO (
-    var username: String,
-    var email: String,
-    var joinedOn: String,
-    var platform: String,
-    var hardwareID: String,
-    var serialNumber: String,
-    var processor: String,
-    var storage: Int,
-    var totalRam: Int,
-    var androidVersion: String,
-    var macAddress: String
+    var username: String = "Loading...",
+    var email: String = "Loading...",
+    var joinedOn: String = "Loading...",
+    var platform: String = "Android",
+    var hardwareID: String = "Unknown",
+    var serialNumber: String = "Unknown",
+    var processor: String = "Unknown",
+    var storage: String = "0 GB",
+    var totalRam: String = "0 GB",
+    var androidVersion: String = "Unknown",
+    var macAddress: String = "Unavailable"
 )

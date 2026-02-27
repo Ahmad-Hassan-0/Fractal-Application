@@ -14,7 +14,7 @@
         android:letterSpacing="0.5"
         android:text="FRACTAL"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

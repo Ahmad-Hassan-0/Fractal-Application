@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.fractal.databinding.FragmentDeviceBinding
+import com.example.fractal.databinding.FragmentUsageBinding
 import kotlin.random.Random
 import android.util.Log
 import org.json.JSONObject
@@ -13,7 +13,7 @@ import java.io.File
 
 class UsageInsights_Fragment : Fragment() {
 
-    private var _binding: FragmentDeviceBinding? = null
+    private var _binding: FragmentUsageBinding? = null
     private val binding get() = _binding!!
 
     // Target stats that will be randomly generated
@@ -32,7 +32,7 @@ class UsageInsights_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDeviceBinding.inflate(inflater, container, false)
+        _binding = FragmentUsageBinding.inflate(inflater, container, false)
         Log.e("UsageInsights", "Fragment created")
         return binding.root
     }

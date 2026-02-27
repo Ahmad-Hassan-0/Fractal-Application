@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_split"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.37" />
+
+    <View
+        android:id="@+id/view_bottom_bg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_split" />
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:scaleType="center"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/backarrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#000000" />
+
+    <ImageView
+        android:id="@+id/img_tree_top"
+        android:layout_width="280dp"
+        android:layout_height="226dp"
+        android:src="@drawable/img_fractal_tree"
+        android:scaleType="fitEnd"
+        app:tint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_split"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_tree_bottom"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:src="@drawable/img_fractal_tree"
+        android:scaleY="-1"
+        android:scaleType="fitEnd"
+        android:alpha="0.7"
+        app:tint="#CCCCCC"
+        app:layout_constraintTop_toTopOf="@+id/guideline_split"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/genos_regular"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:lineSpacingExtra="4dp"
+        android:text="Fractal is a decentralized cloud computing platform which aims to leverage the crowded sourced federated resource allocation to enable distributed workload orchestration"
+        android:textColor="#CCCCCC"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_tree_bottom" />
+
+    <TextView
+        android:id="@+id/tv_sounds_interesting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/genos_bold"
+        android:letterSpacing="0.1"
+        android:text="Sounds Interesting?"
+        android:textColor="#808080"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+    <TextView
+        android:id="@+id/tv_join_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/genos_bold"
+        android:letterSpacing="0.1"
+        android:text="Join us"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sounds_interesting" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

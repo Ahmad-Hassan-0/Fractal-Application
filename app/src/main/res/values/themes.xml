@@ -54,6 +54,19 @@
         <item name="android:fontFamily">@font/genos_family</item>
     </style>
 
+    <style name="SidebarCutShape" parent="">
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerSizeTopRight">75dp</item> <item name="cornerFamilyBottomRight">cut</item>
+        <item name="cornerSizeBottomRight">75dp</item> <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="BlackCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="colorAccent">#000000</item> <item name="android:textColorSecondary">#000000</item>
+    </style>
+
     <style name="TextAppearance.Fractal.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
         <item name="android:fontFamily">@font/genos_family</item>
     </style>

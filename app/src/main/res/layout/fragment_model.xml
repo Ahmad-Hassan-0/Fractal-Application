@@ -9,27 +9,96 @@
         android:id="@+id/text_model"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Model Training"
-        android:textAllCaps="true"
-        android:textColor="#000000"
-        android:textSize="14dp"
+        android:fontFamily="@font/genos_family"
         android:letterSpacing="0.16"
-        android:fontFamily="@font/genos_bold"
+        android:text="Model Training"
+        android:textColor="#181818"
+        android:textFontWeight="600"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/wave_visualization"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <AppFrontend.Interface.Insights.ModelTraining.TrainingWaveView
         android:id="@+id/wave_visualization"
         android:layout_width="0dp"
-        android:layout_height="280dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_overall_perf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_model" />
+
+    <TextView
+        android:id="@+id/tv_overall_perf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/genos_bold"
+        android:letterSpacing="0.16"
+        android:text="Overall Performance: 93%"
+        android:textColor="#181818"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/ll_stats"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wave_visualization" />
+
+    <LinearLayout
+        android:id="@+id/ll_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/tv_model_mode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_overall_perf">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/genos_regular"
+            android:letterSpacing="0.16"
+            android:text="Estimated Time Left: 12%"
+            android:textColor="#4F4F4F"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/genos_regular"
+            android:letterSpacing="0.16"
+            android:text="Epochs Completed: 40%"
+            android:textColor="#4F4F4F"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/genos_regular"
+            android:letterSpacing="0.16"
+            android:text="Inference Testing: 0%"
+            android:textColor="#4F4F4F"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_model_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/genos_regular"
+        android:letterSpacing="0.16"
+        android:text="Training Model Mode: Image CNN"
+        android:textColor="#4F4F4F"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_model"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_stats" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
