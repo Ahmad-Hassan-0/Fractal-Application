@@ -159,10 +159,10 @@
 
     <ImageButton
         android:id="@+id/sidebar_close_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="-12dp"
+        android:layout_marginTop="-12dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/header_drawer_icon"
         app:tint="#FFFFFF" />

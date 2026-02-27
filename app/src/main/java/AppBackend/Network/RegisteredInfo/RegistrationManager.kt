@@ -4,6 +4,8 @@ import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.os.StatFs
 import android.provider.Settings
 import java.io.BufferedReader
@@ -14,14 +16,31 @@ import java.util.Collections
 
 class RegistrationManager(private val context: Context) {
 
+    private val handler = Handler(Looper.getMainLooper())
+    private var liveUpdateRunnable: Runnable? = null
+
+    // Call this from your Fragment to get live real-time updates of the data
+    fun startLiveUpdates(onUpdate: (Registered_DTO) -> Unit) {
+        liveUpdateRunnable = object : Runnable {
+            override fun run() {
+                onUpdate(generateNewRegistrationData())
+                handler.postDelayed(this, 2000) // Re-fetch and update every 2 seconds
+            }
+        }
+        handler.post(liveUpdateRunnable!!)
+    }
+
+    // Call this in your Fragment's onDestroy() to prevent memory leaks
+    fun stopLiveUpdates() {
+        liveUpdateRunnable?.let { handler.removeCallbacks(it) }
+    }
+
     fun generateNewRegistrationData(): Registered_DTO {
         return Registered_DTO(
-            // Placeholders for Firebase data
             username = "whiteshadow69",
             email = "bted4389@gmail.com",
             joinedOn = "23rd Feb, 2004",
 
-            // Live System Data
             platform = "Android",
             hardwareID = getHardwareId(),
             serialNumber = getSerial(),
@@ -45,10 +64,8 @@ class RegistrationManager(private val context: Context) {
 
     private fun getSerial(): String {
         return try {
-            // Build.SERIAL is deprecated in newer Androids due to permissions,
-            // usually returns "unknown". We use Build.MODEL as a reliable fallback for hardware id.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Build.MODEL // Returns e.g. "Pixel 6" or "Samsung S21"
+                Build.MODEL
             } else {
                 Build.SERIAL
             }
@@ -61,34 +78,35 @@ class RegistrationManager(private val context: Context) {
         val actManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val memInfo = ActivityManager.MemoryInfo()
         actManager.getMemoryInfo(memInfo)
-        val totalMemBytes = memInfo.totalMem
-        return formatSize(totalMemBytes)
+
+        // Return Available Memory instead of Total for a more "live" feeling
+        return formatSize(memInfo.availMem) + " Free / " + formatSize(memInfo.totalMem)
     }
 
     private fun getTotalInternalMemorySize(): String {
         val path = Environment.getDataDirectory()
         val stat = StatFs(path.path)
         val blockSize = stat.blockSizeLong
-        val totalBlocks = stat.blockCountLong
-        return formatSize(totalBlocks * blockSize)
+        val availableBlocks = stat.availableBlocksLong
+
+        // Return Available Storage so it changes dynamically
+        return formatSize(availableBlocks * blockSize) + " Free"
     }
 
     private fun getProcessorName(): String {
-        // Attempt to read linux cpuinfo
         try {
             val br = BufferedReader(FileReader("/proc/cpuinfo"))
             var line: String?
             while (br.readLine().also { line = it } != null) {
                 if (line!!.contains("Hardware")) {
-                    return line!!.split(":".toRegex()).dropLastWhile { it.isEmpty() }
-                        .toTypedArray()[1].trim()
+                    return line!!.split(":".toRegex()).dropLastWhile { it.isEmpty() }[1].trim()
                 }
             }
             br.close()
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        return Build.BOARD // Fallback
+        return Build.BOARD
     }
 
     private fun getMacAddress(): String {
@@ -108,7 +126,7 @@ class RegistrationManager(private val context: Context) {
         } catch (ex: Exception) {
             return "Unavailable"
         }
-        return "02:00:00:00:00:00" // Android 11+ often blocks this
+        return "02:00:00:00:00:00"
     }
 
     private fun formatSize(size: Long): String {
@@ -123,11 +141,8 @@ class RegistrationManager(private val context: Context) {
     }
 
     fun loadRegistrationData(): Registered_DTO {
-        // Placeholder for loading saved JSON later
         return generateNewRegistrationData()
     }
 
-    fun saveRegistrationData() {
-        // Placeholder
-    }
+    fun saveRegistrationData() {}
 }

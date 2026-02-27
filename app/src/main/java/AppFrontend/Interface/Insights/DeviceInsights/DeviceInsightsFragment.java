@@ -37,17 +37,13 @@ public class DeviceInsightsFragment extends Fragment {
         viewModel.getBatteryPercent().observe(getViewLifecycleOwner(), percent -> {
             String percentText = percent + "%";
 
-            // Update both the black (base) and white (masked) text
             binding.tvBatteryPercentBlack.setText(percentText);
             binding.tvBatteryPercentWhite.setText(percentText);
 
-            // 1. Adjust the width of the black mask
             ConstraintLayout.LayoutParams maskParams = (ConstraintLayout.LayoutParams) binding.flBatteryMask.getLayoutParams();
             maskParams.matchConstraintPercentWidth = percent / 100f;
             binding.flBatteryMask.setLayoutParams(maskParams);
 
-            // 2. Lock the inner white text layer to the exact width of the full bar.
-            // This prevents the text from shifting when the mask shrinks!
             binding.batteryBarContainer.post(() -> {
                 int fullWidth = binding.batteryBarContainer.getWidth();
                 if (fullWidth > 0) {
@@ -97,13 +93,8 @@ public class DeviceInsightsFragment extends Fragment {
         );
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (viewModel != null) {
-            viewModel.update_ui_stats();
-        }
-    }
+    // NOTE: onResume() is intentionally removed here.
+    // The ViewModel handles continuous real-time updates natively now!
 
     @Override
     public void onDestroyView() {
