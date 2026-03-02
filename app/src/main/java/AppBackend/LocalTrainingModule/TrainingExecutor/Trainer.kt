@@ -1,18 +1,19 @@
 package AppBackend.LocalTrainingModule.TrainingExecutor
 
-import AppBackend.TaskContainer.Task
 import org.tensorflow.lite.Interpreter
 import java.nio.MappedByteBuffer
 
 interface Trainer {
-    val task: Task
-    val trainingData: Any
-    val interpreter: Interpreter
-    val currentEpoch: Int
+    var task: AppBackend.TaskContainer.Task
+    var trainingData: Any
+    var interpreter: Interpreter
+    var currentEpoch: Int
 
-    fun setUpTrainer(pTrainingData: Any, pTask: Task)
+    fun setUpTrainer(pTrainingData: Any?, pTask: AppBackend.TaskContainer.Task)
     fun loadModelFile(): MappedByteBuffer
     fun loadModel(): Interpreter
-    fun initializeWeights();
-    fun trainModel();
+    fun initializeWeights()
+
+    // Add the callback here!
+    fun trainModel(callback: TrainingCallback? = null)
 }

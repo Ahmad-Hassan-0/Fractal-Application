@@ -28,13 +28,29 @@ class Settings_ViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun toggleWifi() {
         val config = getConfig()
-        config.onWifi = !config.onWifi
+        if (config.onWifi) {
+            // Trying to turn Wifi OFF. Only allow if Data is ON.
+            if (config.onData) {
+                config.onWifi = false
+            }
+        } else {
+            // Turning Wifi ON is always allowed.
+            config.onWifi = true
+        }
         saveConfig()
     }
 
     fun toggleData() {
         val config = getConfig()
-        config.onData = !config.onData
+        if (config.onData) {
+            // Trying to turn Data OFF. Only allow if Wifi is ON.
+            if (config.onWifi) {
+                config.onData = false
+            }
+        } else {
+            // Turning Data ON is always allowed.
+            config.onData = true
+        }
         saveConfig()
     }
 

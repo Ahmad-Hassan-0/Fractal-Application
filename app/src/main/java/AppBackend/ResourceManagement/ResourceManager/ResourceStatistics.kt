@@ -1,11 +1,8 @@
 package AppBackend.ResourceManagement.ResourceManager
 
-class ResourceStatistics(
-    var overallPerformance:Int,
-    var estimatedTimeLeft: Int,
-    var epochsCompleted: Int
-) {
-    fun updateStatistics(){
-
-    }
-}
+data class ResourceStatistics(
+    var overallPerformance: String = "0%",
+    var estimatedTimeLeft: String = "Calculating...",
+    var epochsCompleted: String = "0 / 0",
+    var inferenceTesting: String = "Pending"
+)

@@ -10,16 +10,15 @@ public class ModelTrainingViewModel extends ViewModel {
 
     public ModelTrainingViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Model fragment");
+        mText.setValue("Model Training Details");
     }
 
     public LiveData<String> getText() {
         return mText;
     }
 
-    /// /////////
-
-    public void updateModelTrainingGraph(){
-
+    // You can use this later to pass data to your TrainingWaveView
+    public void updateModelTrainingGraph(float lossValue) {
+        // Logic to update your animated graph goes here
     }
 }

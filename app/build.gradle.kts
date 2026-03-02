@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.fractal"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -58,6 +59,7 @@ dependencies {
     implementation ("org.tensorflow:tensorflow-lite-support:0.4.4")
     implementation ("org.tensorflow:tensorflow-lite-select-tf-ops:2.13.0")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
 
     // Unit Testing
     testImplementation(libs.junit)
@@ -69,4 +71,10 @@ dependencies {
 
     //JSON
     implementation ("com.google.code.gson:gson:2.10.1")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.9.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
 }

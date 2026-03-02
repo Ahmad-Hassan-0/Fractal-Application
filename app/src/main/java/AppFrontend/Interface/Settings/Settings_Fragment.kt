@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.fractal.R
@@ -55,15 +54,17 @@ class Settings_Fragment : Fragment() {
         // Back Button
         binding.btnBack.setOnClickListener { findNavController().navigateUp() }
 
-        // Toggles
+        // Toggles (At least one must be selected)
         binding.btnWifi.setOnClickListener {
             viewModel.toggleWifi()
             updateIcon(binding.btnWifi, viewModel.getConfig().onWifi)
         }
+
         binding.btnData.setOnClickListener {
             viewModel.toggleData()
             updateIcon(binding.btnData, viewModel.getConfig().onData)
         }
+
         binding.btnOvernight.setOnClickListener {
             viewModel.toggleOvernight()
             updateIcon(binding.btnOvernight, viewModel.getConfig().overNightUtilization)
@@ -80,16 +81,12 @@ class Settings_Fragment : Fragment() {
         // --- SLIDER LOGIC ---
         binding.sliderCharge.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                // Update the text dynamically while dragging
                 updateLabelText(progress)
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                // Optional: Add animation or feedback on touch start
-            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // Save the value only when the user releases the thumb
                 seekBar?.let {
                     viewModel.updateChargeLimit(it.progress)
                 }
@@ -97,18 +94,16 @@ class Settings_Fragment : Fragment() {
         })
     }
 
-    // Helper to format the text string
     private fun updateLabelText(value: Int) {
         binding.tvChargeLimitLabel.text = "Only train when charging is\nabove: $value%"
     }
 
-    // Helper to swap icons
     private fun updateIcon(view: ImageView, isActive: Boolean) {
         if (isActive) {
-            view.setImageResource(R.drawable.leaf_checked) // Filled/Active Icon
+            view.setImageResource(R.drawable.leaf_checked)
             view.alpha = 1.0f
         } else {
-            view.setImageResource(R.drawable.leaf_unchecked) // Outline/Inactive Icon
+            view.setImageResource(R.drawable.leaf_unchecked)
             view.alpha = 0.5f
         }
     }
@@ -122,4 +117,3 @@ class Settings_Fragment : Fragment() {
 
     }
 }
-

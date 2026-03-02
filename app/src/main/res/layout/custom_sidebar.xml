@@ -104,19 +104,6 @@
                     android:textSize="19dp" />
 
                 <TextView
-                    android:id="@+id/nav_item_reg_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:fontFamily="@font/genos_regular"
-                    android:letterSpacing="0.1"
-                    android:padding="8dp"
-                    android:text="Reg. Info"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18dp" />
-
-                <TextView
                     android:id="@+id/nav_item_reg_device"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -125,9 +112,24 @@
                     android:fontFamily="@font/genos_regular"
                     android:letterSpacing="0.1"
                     android:padding="8dp"
-                    android:text="Reg. Device"
+                    android:text="Register Device"
                     android:textColor="#FFFFFF"
                     android:textSize="18dp" />
+
+
+                <TextView
+                    android:id="@+id/nav_item_reg_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/genos_regular"
+                    android:letterSpacing="0.1"
+                    android:padding="8dp"
+                    android:text="Device &amp; Reg Info"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
+
 
                 <TextView
                     android:id="@+id/nav_item_unreg_device"
@@ -137,7 +139,7 @@
                     android:fontFamily="@font/genos_regular"
                     android:letterSpacing="0.1"
                     android:padding="8dp"
-                    android:text="Un-Reg. Device"
+                    android:text="Support &amp; Account"
                     android:textColor="#FFFFFF"
                     android:textSize="18dp" />
 

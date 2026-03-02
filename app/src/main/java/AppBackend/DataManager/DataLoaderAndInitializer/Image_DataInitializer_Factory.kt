@@ -1,7 +1,7 @@
 package AppBackend.DataManager.DataLoaderAndInitializer
 
-class Image_DataInitializer_Factory : DataInitializer_Factory{
+class Image_DataInitializer_Factory : DataInitializer_Factory {
     override fun createDataInitializer(): DataInitializer {
-        TODO("Not yet implemented")
+        return Image_DataInitializer()
     }
 }

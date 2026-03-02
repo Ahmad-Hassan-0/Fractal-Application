@@ -37,9 +37,10 @@ class RegistrationManager(private val context: Context) {
 
     fun generateNewRegistrationData(): Registered_DTO {
         return Registered_DTO(
-            username = "whiteshadow69",
-            email = "bted4389@gmail.com",
-            joinedOn = "23rd Feb, 2004",
+            // These will be overridden by the Server_DAO
+            username = "Loading...",
+            email = "Loading...",
+            joinedOn = "Loading...",
 
             platform = "Android",
             hardwareID = getHardwareId(),
@@ -79,7 +80,6 @@ class RegistrationManager(private val context: Context) {
         val memInfo = ActivityManager.MemoryInfo()
         actManager.getMemoryInfo(memInfo)
 
-        // Return Available Memory instead of Total for a more "live" feeling
         return formatSize(memInfo.availMem) + " Free / " + formatSize(memInfo.totalMem)
     }
 
@@ -89,7 +89,6 @@ class RegistrationManager(private val context: Context) {
         val blockSize = stat.blockSizeLong
         val availableBlocks = stat.availableBlocksLong
 
-        // Return Available Storage so it changes dynamically
         return formatSize(availableBlocks * blockSize) + " Free"
     }
 

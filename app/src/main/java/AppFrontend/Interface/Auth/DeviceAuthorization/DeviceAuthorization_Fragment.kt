@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.fractal.R
 import com.example.fractal.databinding.FragmentDeviceAuthorizationBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class DeviceAuthorization_Fragment : Fragment() {
 
@@ -28,13 +29,8 @@ class DeviceAuthorization_Fragment : Fragment() {
     ): View {
         _binding = FragmentDeviceAuthorizationBinding.inflate(inflater, container, false)
 
-        // Underline "Forget Password"
         binding.tvForgetPassword.paintFlags = binding.tvForgetPassword.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
-        // Underline "Terms And Conditions"
         binding.tvTermsLink.paintFlags = binding.tvTermsLink.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
-        // FORCE FONT ON INIT: Ensure Genos is used even though inputType="password"
         fixPasswordFont()
 
         return binding.root
@@ -42,51 +38,93 @@ class DeviceAuthorization_Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[DeviceAuthorization_ViewModel::class.java]
+
+        // 1. SECURE AUTO-LOGIN BYPASS
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null && currentUser.isEmailVerified) {
+            Toast.makeText(requireContext(), "Welcome back!", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.navigation_home)
+            return
+            // NOTE: We no longer sign out unverified users here.
+            // It was killing the session while they were in the Gmail app!
+        }
+
+        // 2. USE requireActivity() TO PREVENT SCREEN RESET
+        // This keeps the ViewModel alive even if they background the app or visit the Forget Password screen.
+        viewModel = ViewModelProvider(requireActivity())[DeviceAuthorization_ViewModel::class.java]
+
         setupClickListeners()
+        setupObservers()
+    }
+
+    // 3. THE INSTANT REFRESH TRIGGER
+    // This fires the exact millisecond the user returns to your app from their email.
+    override fun onResume() {
+        super.onResume()
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null && !currentUser.isEmailVerified) {
+            currentUser.reload().addOnSuccessListener {
+                if (currentUser.isEmailVerified) {
+                    // Call the secure helper function instead!
+                    viewModel.updateAuthStatus("Success")
+                }
+            }
+        }
+    }
+
+    private fun setupObservers() {
+        viewModel.authStatus.observe(viewLifecycleOwner) { status ->
+            when {
+                status == "Processing..." -> {
+                    binding.btnLoginRegister.text = "Authenticating..."
+                    binding.btnLoginRegister.isEnabled = false
+                }
+                status == "Success" -> {
+                    Toast.makeText(context, "Authentication Successful!", Toast.LENGTH_SHORT).show()
+
+                    // Call the secure helper function to clear the status
+                    viewModel.updateAuthStatus("")
+                    findNavController().navigate(R.id.navigation_home)
+                }
+                status.startsWith("AwaitingVerification:") -> {
+                    val msg = status.removePrefix("AwaitingVerification:")
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+
+                    binding.btnLoginRegister.text = "Waiting for Verification..."
+                    binding.btnLoginRegister.isEnabled = false
+                }
+                status.startsWith("Error:") -> {
+                    Toast.makeText(context, status, Toast.LENGTH_LONG).show()
+                    binding.btnLoginRegister.text = "Login/Register"
+                    binding.btnLoginRegister.isEnabled = true
+                }
+            }
+        }
     }
 
     private fun setupClickListeners() {
         binding.btnBack.setOnClickListener { findNavController().navigateUp() }
         binding.btnTogglePassword.setOnClickListener { togglePasswordVisibility() }
         binding.btnLoginRegister.setOnClickListener { button_LoginRegister() }
-
-        // Make text clickable for checkbox too
         binding.tvTermsLink.setOnClickListener { binding.cbTerms.isChecked = !binding.cbTerms.isChecked }
-
-        // --- CORRECTED PLACEMENT ---
-        // This acts as the permanent listener for the Forget Password link
-        binding.tvForgetPassword.setOnClickListener {
-            // Make sure this ID matches your mobile_navigation.xml
-            findNavController().navigate(R.id.navigation_forget_password)
-        }
+        binding.tvForgetPassword.setOnClickListener { findNavController().navigate(R.id.navigation_forget_password) }
     }
 
     private fun togglePasswordVisibility() {
         if (isPasswordVisible) {
-            // HIDE PASSWORD
             binding.etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             binding.btnTogglePassword.setImageResource(R.drawable.ic_eye_hidden)
             isPasswordVisible = false
         } else {
-            // SHOW PASSWORD
             binding.etPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             binding.btnTogglePassword.setImageResource(R.drawable.ic_eye_visibility)
-
-            // REMOVED: Do not set the listener here! It belongs in setupClickListeners.
-
             isPasswordVisible = true
         }
-
-        // CRITICAL FIX: Re-apply the Genos font because Android resets it to Monospace
         fixPasswordFont()
-
-        // Keep cursor at end
         binding.etPassword.setSelection(binding.etPassword.text.length)
     }
 
     private fun fixPasswordFont() {
-        // Load your custom Genos Regular font
         val customTypeface = ResourcesCompat.getFont(requireContext(), R.font.genos_regular)
         binding.etPassword.typeface = customTypeface
     }
@@ -107,9 +145,8 @@ class DeviceAuthorization_Fragment : Fragment() {
             return
         }
 
-        val loginData = LoginRegister_DTO(username, email, password)
+        val loginData = LoginRegister_DTO(username, password, email)
         viewModel.loginRegister(loginData)
-        Toast.makeText(context, "Sending Request...", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

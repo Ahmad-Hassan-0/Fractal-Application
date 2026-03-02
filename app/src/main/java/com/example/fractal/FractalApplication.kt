@@ -1,5 +1,6 @@
 package com.example.fractal
 
+import AppBackend.Factory.PackageTypeTrainer.PackageTypeTrainerBuilder
 import android.app.Application
 import android.util.Log
 import AppBackend.Network.Server_DAO.Server_DAO
@@ -40,9 +41,10 @@ class FractalApplication : Application() {
         }
 
         // ------------------------------
-        // 4. Setup server
+        // 4. Setup server & Engines
         // ------------------------------
         val serverDao = Server_DAO()
+        val trainerBuilder = PackageTypeTrainerBuilder() // <-- 1. Create the Builder
 
         // ------------------------------
         // 5. Setup GlobalState
@@ -50,6 +52,7 @@ class FractalApplication : Application() {
         globalState = GlobalState()
         globalState.server = serverDao
         globalState.appConfig = appConfig
+        globalState.packageTypeTrainerBuilder = trainerBuilder // <-- 2. Inject it into GlobalState
 
         // ------------------------------
         // 6. Utils

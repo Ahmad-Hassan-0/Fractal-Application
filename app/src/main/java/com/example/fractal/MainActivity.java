@@ -1,5 +1,6 @@
 package com.example.fractal;
 
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -14,10 +15,18 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.fractal.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import android.content.Context;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +54,26 @@ public class MainActivity extends AppCompatActivity {
         if (navHostFragment == null) return;
         NavController navController = navHostFragment.getNavController();
 
+        // =========================================================================
+        // NEW: FIRST LAUNCH LOGIC
+        // =========================================================================
+        SharedPreferences prefs = getSharedPreferences("fractal_prefs", MODE_PRIVATE);
+        boolean isFirstLaunch = prefs.getBoolean("is_first_launch", true);
+
+        if (!isFirstLaunch) {
+            // If it's NOT the first launch, clear the backstack and jump straight to Home
+            NavOptions navOptions = new NavOptions.Builder()
+                    .setPopUpTo(R.id.navigation_get_started, true)
+                    .build();
+            navController.navigate(R.id.navigation_home, null, navOptions);
+        } else {
+            // If it IS the first launch, save false so we never see it again
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("is_first_launch", false);
+            editor.apply();
+        }
+        // =========================================================================
+
         // 4. Custom Bottom Nav Setup
         if (navView != null) {
             navView.setOnItemSelectedListener(item -> {
@@ -64,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     // FIX: Always send the fragment result.
-                    // If the fragment is brand new, Android caches this signal and
-                    // delivers it the exact millisecond the Fragment wakes up!
                     Bundle result = new Bundle();
                     result.putInt("page", targetPage);
                     getSupportFragmentManager().setFragmentResult("tab_change", result);
@@ -227,4 +254,27 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                // If the user tapped OUTSIDE the active EditText
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    // Force the EditText to lose focus
+                    v.clearFocus();
+                    // Hide the soft keyboard automatically
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
 }
